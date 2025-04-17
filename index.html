@@ -149,15 +149,6 @@
             }
         });
 
-        // Close overlay when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.image-container.active')) {
-                document.querySelectorAll('.image-container').forEach(container => {
-                    container.classList.remove('active');
-                });
-            }
-        });
-
         // Debug code (remove after testing)
         setTimeout(() => {
             console.log('Slides:', swiper.slides.map(slide => slide.className));
