@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Bellotto neu interpretiert</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="./assets/style.css" />
+</head>
+
+<body>
+    <header>
+        <h1>Bellotto neu interpretiert - Kreuzkirche</h1>
+    </header>
+
+    <!-- Swiper -->
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="image-container">
+                    <img src="./assets/img/zerstoerung.png">
+                    <div class="image-overlay">
+                        <div class="overlay-content">
+                            <h3 class="prototype-title">Zerstörung & Geschichte</h3>
+                            <p class="prototype-description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+                                voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
+                                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
+                                amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+                                dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
+                                dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
+                                dolor sit amet.</p>
+                            <a href="/" class="prototype-button">Zum Prototypen</a>
+                            <button class="close-overlay">x</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="image-container">
+                    <img src="./assets/img/kunstepochen.png">
+                    <div class="image-overlay">
+                        <div class="overlay-content">
+                            <h3 class="prototype-title">Kunstepochen & -stile</h3>
+                            <p class="prototype-description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+                                voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
+                                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
+                                amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+                                dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
+                                dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
+                                dolor sit amet.</p>
+                            <a href="/" class="prototype-button">Zum Prototypen</a>
+                            <button class="close-overlay">x</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="image-container">
+                    <img src="./assets/img/fragile_welten.png">
+                    <div class="image-overlay">
+                        <div class="overlay-content">
+                            <h3 class="prototype-title">Fragile Welten</h3>
+                            <p class="prototype-description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+                                voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
+                                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
+                                amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+                                dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
+                                dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
+                                dolor sit amet.</p>
+                            <a href="/" class="prototype-button">Zum Prototypen</a>
+                            <button class="close-overlay">x</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+
+        var swiper = new Swiper(".mySwiper", {
+
+            slidesPerView: "auto",
+            centeredSlides: true,
+            spaceBetween: 30,
+            loop: true,
+
+            observer: true,
+            observeParents: true,
+            observeSlideChildren: true,
+
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+
+            on: {
+                init: function () {
+                    // Force initial positioning
+                    this.slideTo(1, 0); // Immediately jump to cloned slide
+                }
+            }
+
+        });
+
+        swiper.slides.forEach((slide) => {
+            slide.addEventListener("click", (e) => {
+                if (swiper.dragging) return;
+
+                const slide = e.target.closest(".swiper-slide");
+                if (!slide) return;
+
+                const imageContainer = slide.querySelector(".image-container");
+                if (!imageContainer) return;
+
+                const wasActive = imageContainer.classList.contains("active");
+
+                document.querySelectorAll(".image-container").forEach(container => {
+                    container.classList.remove("active");
+                })
+
+                if (!wasActive) {
+                    imageContainer.classList.add("active");
+                }
+            });
+        })
+
+        // Close overlay when clicking close button
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.close-overlay')) {
+                e.target.closest('.image-container').classList.remove('active');
+            }
+        });
+
+        // Close overlay when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.image-container.active')) {
+                document.querySelectorAll('.image-container').forEach(container => {
+                    container.classList.remove('active');
+                });
+            }
+        });
+
+        // Debug code (remove after testing)
+        setTimeout(() => {
+            console.log('Slides:', swiper.slides.map(slide => slide.className));
+            console.log('Wrapper transform:', swiper.wrapperEl.style.transform);
+        }, 1000);
+
+    </script>
+</body>
+
+</html>
