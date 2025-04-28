@@ -22,12 +22,17 @@ header {
 .swiper {
     width: 100vw;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .swiper-slide {
     width: 60%;
+    height: 92%;
+    margin: auto;
     text-align: center;
-    font-size: 18px;
+    font-size: 25px;
     background: #fff;
     display: flex;
     justify-content: center;
@@ -85,10 +90,7 @@ header {
     padding: 20px;
     z-index: 2;
     transition: all 0.3s ease;
-}
-
-.image-overlay * {
-    pointer-events: none;
+    pointer-events: auto;
 }
 
 .image-container.active .image-overlay {
@@ -108,28 +110,35 @@ header {
     color: white;
     position: relative;
     max-width: 80%;
+    pointer-events: auto;
+    z-index: 1001;
 }
 
 .prototype-button {
-    background: #fff;
-    color: #000;
-    padding: 12px 24px;
+    background: #EB4E27;
+    color: white;
+    padding: 24px 45px;
     text-decoration: none;
     border-radius: 25px;
     display: inline-block;
     margin-top: 15px;
-    transition: transform 0.2s ease;
+    z-index: 1000;
 }
 
 .prototype-button:hover {
     transform: scale(1.05);
+    transition: transform 0.2s ease;
 }
 
 .close-overlay {
     position: absolute;
     top: 15px;
     right: 15px;
-    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 1;
     background: none;
     border: none;
     color: white;
@@ -139,5 +148,17 @@ header {
 }
 
 .close-overlay:hover {
-    transform: scale(1.05);
+    transform: scale(1.1);
+}
+
+.swiper-pagination-bullet {
+    background-color: #999;
+    width: 20px;
+    height: 20px;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #EB4E27;
+    width: 20px;
+    height: 20px;
 }

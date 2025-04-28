@@ -78,7 +78,7 @@
                                 dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
                                 dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
                                 dolor sit amet.</p>
-                            <a href="fragility.html" class="prototype-button">Zum Prototypen</a>
+                            <a href="/fragility.html" class="prototype-button">Zum Prototypen</a>
                             <button class="close-overlay">x</button>
                         </div>
                     </div>
@@ -131,6 +131,11 @@
             slide.addEventListener("click", (e) => {
                 // Prevent click event if dragging
                 if (swiper.dragging) return;
+
+                // Check if click was on a button or link
+                if (e.target.closest('a') || e.target.closest('button')) {
+                    return; // Let the button/link handle its own click
+                }
 
                 // Find the closest slide element from clicked target
                 const slide = e.target.closest(".swiper-slide");
