@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bellotto neu interpretiert - Fragile Welten</title>
+    <link rel="stylesheet" href="/assets/fragility_style.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/fav/favicon_skd_16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/fav/favicon_skd_32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/img/fav/favicon_skd_48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/fav/favicon_skd_192.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="167x167" href="/assets/img/fav/favicon_skd_167.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/img/fav/favicon_skd_180.png">
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="board">
+            <button data-tooltip="Sand" id="sand_btn" class="btn btn_tooltip"></button>
+            <button data-tooltip="Glas" id="glas_btn" class="btn btn_tooltip"></button>
+            <button data-tooltip="Karten" id="karten_btn" class="btn btn_tooltip"></button>
+            <button data-tooltip="Knete" id="knete_btn" class="btn btn_tooltip"></button>
+            <button data-tooltip="Papier" id="papier_btn" class="btn btn_tooltip"></button>
+            <button data-tooltip="Keramik" id="keramik_btn" class="btn btn_tooltip"></button>
+            <button data-tooltip="Schnee" id="schnee_btn" class="btn btn_tooltip"></button>
+            <button data-tooltip="Info" id="info_btn" class="btn btn_tooltip"></button>
+        </div>
+        <div id="frame">
+            <img id="frame_img_dst" class="center" src="./assets/img/Canaletto.png" />
+            <span class="tooltip">
+                <h1>Fragile Welten</h1>
+                <p>Öffne mit Künstlicher Intelligenz ein Portal in die Zukunft Dresdens.</p>
+                <p>Durch das Drücken von zwei Knöpfen kannst du verschiedene Szenarien auswählen und über Utopie oder
+                    Dystopie entscheiden.</p>
+            </span>
+            <img id="frame_img_src" class="center" src="./assets/img/Canaletto.png" />
+        </div>
+    </div>
+</body>
+<script>
+
+    // categories: (a)nimals, (e)nergies, (f)lood, (g)lobal warming, (m)obility, (n)ature, (s)pace
+    const folder_names = ["Sand", "Glas", "Karten", "Knete", "Papier", "Keramik", "Schnee"];
+
+    const ids = new Set();
+
+    const btn_ids = ["sand_btn", "glas_btn", "karten_btn", "knete_btn", "papier_btn", "keramik_btn", "schnee_btn"];
+
+    // js object with hardcoded path for every img of a category
+    let categories = {};
+
+
+    async function initializeCategories() {
+        for (const foldername of folder_names) {
+            const key = foldername[0] + foldername[1];
+            const paths = [];
+
+            let i = 1;
+            while (true) {
+                const imgPath = `./assets/img/img-ai/${foldername}/${foldername}${i}.png`;
+                const exists = await checkImageExists(imgPath);
+
+                if (exists) {
+                    paths.push(`${foldername}/${foldername}${i}.png`);
+                    i++;
+                } else {
+                    break;
+                }
+            }
+
+            categories[key] = { "current_idx": 0, "paths": paths };
+            console.log(`Category ${key} initialized with ${paths.length} images.`);
+
+        }
+    }
+
+    function checkImageExists(url) {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.src = url;
+            img.onload = () => resolve(true);
+            img.onerror = () => resolve(false);
+        });
+    }
+
+    initializeCategories().then(() => {
+        btn_ids.forEach((id) => {
+            const btn_event = document.getElementById(id);
+
+            btn_event.addEventListener("click", function (event) {
+                const button = event.target;
+                button.classList.add('clicked');
+                select_category(event);
+            });
+            btn_event.addEventListener("touchstart", function (event) {
+                const button = event.target;
+                button.classList.add('clicked');
+                select_category(event);
+            });
+        });
+    });
+
+    function select_category(event) {
+
+        const id_btn = event.target.id;
+        const category = id_btn[0].toUpperCase() + id_btn[1];
+        ids.add(id_btn);
+
+        const btn = document.getElementById(id_btn)
+        btn.style.boxShadow = "none";
+        btn.style.pointerEvents = "none";
+        btn.style.cursor = "pointer";
+
+        if (category) {
+
+            btn_ids.forEach((id) => {
+                const btn = document.getElementById(id);
+                btn.style.boxShadow = "none";
+                btn.style.pointerEvents = "none";
+                btn.style.cursor = "pointer";
+            });
+            changeImage(getImageByCategories(category));
+
+            setTimeout(function () {
+                btn_ids.forEach((id) => {
+                    const btn = document.getElementById(id);
+                    btn.style.boxShadow = "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px";
+                    btn.style.pointerEvents = "auto";
+                });
+            }, 13900);
+        }
+    }
+
+    async function changeImage(srcImage) {
+        const buttons = document.querySelectorAll('button');
+        const img = document.getElementById('frame_img_dst');
+        const board = document.getElementById('board');
+        const btns = Array.from(document.getElementsByClassName('btn'))
+
+        img.src = srcImage;
+        await img.decode();
+        img.style.opacity = 1;
+
+        board.classList.add("hide_cursor");
+        btns.forEach(b => {
+            b.classList.add("hide_cursor");
+        });
+        buttons.forEach(button => {
+            button.disabled = true;
+            button.classList.add("hide_cursor")
+        });
+
+        setTimeout(function () {
+            img.style.opacity = 0;
+        }, 10000);
+
+        setTimeout(function () {
+            btns.forEach(b => {
+                b.classList.remove("hide_cursor");
+            });
+            buttons.forEach(button => {
+                button.disabled = false;
+                button.classList.remove("clicked");
+                button.classList.remove("hide_cursor");
+                board.classList.remove("hide_cursor");
+            });
+        }, 13701);
+    }
+
+    function getImageByCategories(category) {
+        const list = categories[category]["paths"];
+        console.log("list length: " + list.length);
+        console.log("categories[category][paths]: " + list[categories[category]["current_idx"]]);
+        categories[category]["current_idx"] = (categories[category]["current_idx"] + 1) % list.length;
+        return "./assets/img/img-ai/" + list[categories[category]["current_idx"]];
+    }
+
+</script>
+
+</html>
