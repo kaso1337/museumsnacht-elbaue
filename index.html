@@ -8,6 +8,12 @@
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="./assets/style.css" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/fav/favicon_skd_16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/fav/favicon_skd_32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/img/fav/favicon_skd_48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/fav/favicon_skd_192.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="167x167" href="/assets/img/fav/favicon_skd_167.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/img/fav/favicon_skd_180.png">
 </head>
 
 <body>
@@ -72,7 +78,7 @@
                                 dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
                                 dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
                                 dolor sit amet.</p>
-                            <a href="/" class="prototype-button">Zum Prototypen</a>
+                            <a href="fragility.html" class="prototype-button">Zum Prototypen</a>
                             <button class="close-overlay">x</button>
                         </div>
                     </div>
@@ -120,31 +126,41 @@
 
         });
 
+        // Add click event to each slide
         swiper.slides.forEach((slide) => {
             slide.addEventListener("click", (e) => {
+                // Prevent click event if dragging
                 if (swiper.dragging) return;
 
+                // Find the closest slide element from clicked target
                 const slide = e.target.closest(".swiper-slide");
                 if (!slide) return;
 
+                // Find the image container within the slide
                 const imageContainer = slide.querySelector(".image-container");
                 if (!imageContainer) return;
 
+                // Check if the image container was already active
                 const wasActive = imageContainer.classList.contains("active");
 
+                // Remove active class from all image containers
                 document.querySelectorAll(".image-container").forEach(container => {
                     container.classList.remove("active");
                 })
 
+                // Add active class to the clicked image container if it wasn't already active
                 if (!wasActive) {
                     imageContainer.classList.add("active");
                 }
+
+                console.log(document.querySelectorAll(".image-container.active"));
             });
         })
 
         // Close overlay when clicking close button
         document.addEventListener('click', (e) => {
             if (e.target.closest('.close-overlay')) {
+                // Find the parent image container and remove the active class
                 e.target.closest('.image-container').classList.remove('active');
             }
         });
