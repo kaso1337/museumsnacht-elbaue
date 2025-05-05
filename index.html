@@ -84,6 +84,66 @@
                     </div>
                 </div>
             </div>
+            <div class="swiper-slide">
+                <div class="image-container">
+                    <img src="./assets/img/zerstoerung.png">
+                    <div class="image-overlay">
+                        <div class="overlay-content">
+                            <h3 class="prototype-title">Zerstörung & Geschichte</h3>
+                            <p class="prototype-description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+                                voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
+                                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
+                                amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+                                dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
+                                dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
+                                dolor sit amet.</p>
+                            <a href="/" class="prototype-button">Zum Prototypen</a>
+                            <button class="close-overlay">x</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="image-container">
+                    <img src="./assets/img/kunstepochen.png">
+                    <div class="image-overlay">
+                        <div class="overlay-content">
+                            <h3 class="prototype-title">Kunstepochen & -stile</h3>
+                            <p class="prototype-description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+                                voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
+                                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
+                                amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+                                dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
+                                dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
+                                dolor sit amet.</p>
+                            <a href="/" class="prototype-button">Zum Prototypen</a>
+                            <button class="close-overlay">x</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="image-container">
+                    <img src="./assets/img/fragile_welten.png">
+                    <div class="image-overlay">
+                        <div class="overlay-content">
+                            <h3 class="prototype-title">Fragile Welten</h3>
+                            <p class="prototype-description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+                                voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
+                                gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
+                                amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+                                dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
+                                dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
+                                dolor sit amet.</p>
+                            <a href="/fragility.html" class="prototype-button">Zum Prototypen</a>
+                            <button class="close-overlay">x</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="swiper-pagination"></div>
         <div class="swiper-button-next"></div>
@@ -103,13 +163,29 @@
             spaceBetween: 50,
             loop: true,
 
-            observer: true,
-            observeParents: true,
-            observeSlideChildren: true,
+            // this unfortunately causes problem when quickly clicking slides
+            // slideToClickedSlide: true,
+
+            initialSlide: 1,
+
+            // optional 
+            effect: "coverflow",
+            coverflowEffect: {
+                rotate: 0,
+                stretch: -50,
+                depth: 120,
+                modifier: 1,
+                slideShadows: false,
+            },
 
             pagination: {
                 el: ".swiper-pagination",
+                type: "bullets",
                 clickable: true,
+                renderBullet: function (index, className) {
+                    if (index >= 3) return '';
+                    return `<span class="${className}"></span>`;
+                },
             },
 
             navigation: {
@@ -118,9 +194,17 @@
             },
 
             on: {
-                init: function () {
-                    // Force initial positioning
-                    this.slideTo(1, 0); // Immediately jump to cloned slide
+                slideChange: function () {
+                    // Update active state based on real index for pagination
+                    const activeIndex = this.realIndex % 3;
+                    this.pagination.bullets.forEach((bullet, index) => {
+                        bullet.classList.toggle('swiper-pagination-bullet-active', index === activeIndex);
+                    });
+
+                    // Removes image overlay on slide change
+                    document.querySelectorAll(".image-container").forEach(container => {
+                        container.classList.remove("active");
+                    })
                 }
             }
 
@@ -129,17 +213,16 @@
         // Add click event to each slide
         swiper.slides.forEach((slide) => {
             slide.addEventListener("click", (e) => {
-                // Prevent click event if dragging
-                if (swiper.dragging) return;
+
+                // Find the closest slide element from clicked target
+                const slide = e.target.closest(".swiper-slide");
+                if (!slide) return;
+                if (!slide.classList.contains("swiper-slide-active")) return; // Ignore clicks on the active slide
 
                 // Check if click was on a button or link
                 if (e.target.closest('a') || e.target.closest('button')) {
                     return; // Let the button/link handle its own click
                 }
-
-                // Find the closest slide element from clicked target
-                const slide = e.target.closest(".swiper-slide");
-                if (!slide) return;
 
                 // Find the image container within the slide
                 const imageContainer = slide.querySelector(".image-container");
@@ -169,12 +252,6 @@
                 e.target.closest('.image-container').classList.remove('active');
             }
         });
-
-        // Debug code (remove after testing)
-        setTimeout(() => {
-            console.log('Slides:', swiper.slides.map(slide => slide.className));
-            console.log('Wrapper transform:', swiper.wrapperEl.style.transform);
-        }, 1000);
 
     </script>
 </body>
