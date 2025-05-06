@@ -29,7 +29,7 @@ body {
 }
 
 #frame_img_src {
-    max-width: 1600px;
+    max-width: 1400px;
     width: 97%;
     height: auto;
 
@@ -45,13 +45,11 @@ body {
 }
 
 #frame_img_dst {
-    max-width: 1600px;
+    max-width: 1400px;
     width: 97%;
     height: auto;
-
     position: absolute;
     justify-content: center;
-
     -khtml-user-select: none;
     -o-user-select: none;
     -moz-user-select: none;
@@ -64,7 +62,7 @@ body {
 }
 
 #board {
-    max-width: 1600px;
+    max-width: 1400px;
     width: 97%;
     height: auto;
     display: flex;
@@ -73,8 +71,7 @@ body {
     background-color: transparent;
     block-size: fit-content;
     position: relative;
-    padding: 2% 0;
-
+    padding: 1.5% 0;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -84,14 +81,15 @@ body {
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    position: relative;;
+    position: relative;
+    ;
 
     display: inline-block;
 
-    width: 16vw;
-    height: 16vw;
-    max-width: 180px;
-    max-height: 180px;
+    width: 14vw;
+    height: 14vw;
+    max-width: 140px;
+    max-height: 140px;
     border: none;
 
     cursor: pointer;
