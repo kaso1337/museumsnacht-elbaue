@@ -1,348 +1,310 @@
-        /* Passepartout border */
-        .passepartout-border {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            padding: 20px;
-            pointer-events: none;
-            z-index: 1;
-        }
+.passepartout-border {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+    pointer-events: none;
+    z-index: 1;
+}
 
-        .home-icon {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            width: 24px;
-            height: 24px;
-            pointer-events: auto;
-        }
-        
-        body {
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: white;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow: hidden;
-        }
+.home-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    pointer-events: auto;
+}
 
-        /* mehr border#container {
-            position: relative;
-            width: calc(100vw - 80px);  Weißer Rand wird vergrößert 
-            height: calc(100vh - 80px); Weißer Rand auch oben/unten 
-            max-width: calc(100vh * (16/9));
-            max-height: calc(100vw * (9/16));
-            box-shadow: 0 0 0 20px white;
-            margin: auto;
-            border-radius: 15px;
-            overflow: hidden;
-            transform: scale(0.9);  Skaliert den Container auf 90% der Originalgröße 
-        }
-        */
-        #container {
-            position: relative;
-            width: calc(100vw - 80px); 
-            height: calc(100vh - 80px);
-            max-width: calc(100vh * (16/9));
-            max-height: calc(100vw * (9/16));
-            box-shadow: 0 0 0 20px white;
-            margin: auto;
-            border-radius: 15px;
-            overflow: hidden;
-            background-size: 95%; 
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        
-        
-        
-        
-        .background {
-            width: 100%;
-            height: 100%;
-            /*object-fit: cover; /* Ensures the background fills the container */
-            object-position: center; /* Focus on the center (adjust if needed) */
-            border-radius: 15px; /* Macht alle Ecken gleichmäßig rund */
-            overflow: hidden; /* Verhindert, dass das Bild über die runden Ecken hinausragt */
-            display: block; /* Stellt sicher, dass das Element korrekt dargestellt wird */
-        }
-        
-        
-        .background.blurred {
-            filter: blur(5px);
-        }
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
 
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 2;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-        }
+#container {
+    position: relative;
+    width: calc(100vw - 80px); 
+    height: calc(100vh - 80px);
+    max-width: calc(100vh * (16/9));
+    max-height: calc(100vw * (9/16));
+    box-shadow: 0 0 0 20px white;
+    margin: auto;
+    border-radius: 15px;
+    overflow: hidden;
+    background-size: 95%; 
+    background-position: center;
+    background-repeat: no-repeat;
+}
 
-        .overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+.background {
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    border-radius: 15px;
+    overflow: hidden;
+    display: block;
+}
 
-        .layer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 3;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            opacity: 1;
-            pointer-events: auto;
-        }
+.background.blurred {
+    filter: blur(5px);
+}
 
-        .layer.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
 
-      /* Top-left */
-        .layer[data-layer="1"] {
-            clip-path: polygon(38% 40%, 58% 40%, 58% 70%, 38% 70%);
-        }
+.overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
 
-        /* Top-right */
-        .layer[data-layer="2"] {
-            clip-path: polygon(70% 20%, 100% 20%, 100% 50%, 70% 50%);
-        }
+.layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 3;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 1;
+    pointer-events: auto;
+}
 
-        /* Bottom-left */
-        .layer[data-layer="3"] {
-            clip-path: polygon(0% 60%, 25% 60%, 25% 90%, 0% 90%);
-        }
+.layer.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
 
-        /* Bottom-right */
-        .layer[data-layer="4"] {
-            clip-path: polygon(60% 70%, 90% 70%, 90% 100%, 60% 100%);
-        }
+.layer[data-layer="1"] {
+    clip-path: polygon(38% 40%, 58% 40%, 58% 70%, 38% 70%);
+}
 
-        /* Center (matches background focus) */
-        .layer[data-layer="5"] {
-            clip-path: polygon(15% 10%, 35% 10%, 35% 45%, 15% 45%)
-        }
+.layer[data-layer="2"] {
+    clip-path: polygon(70% 20%, 100% 20%, 100% 50%, 70% 50%);
+}
 
-        /* Expanded state */
-        .expanded-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 4;
-        }
+.layer[data-layer="3"] {
+    clip-path: polygon(0% 60%, 25% 60%, 25% 90%, 0% 90%);
+}
 
-        .layer.expanded {
-            position: relative;
-            clip-path: none;
-            max-width: 96vw;
-            max-height: 94vh;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            animation: expandIn 0.4s ease-out forwards;
-            transform-origin: center;
-            cursor: pointer;
-            box-shadow: 0 0 0 2px rgba(255,255,255,0.1);
-            margin: auto;
-        }
+.layer[data-layer="4"] {
+    clip-path: polygon(60% 70%, 90% 70%, 90% 100%, 60% 100%);
+}
 
-        @keyframes expandIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
+.layer[data-layer="5"] {
+    clip-path: polygon(15% 10%, 35% 10%, 35% 45%, 15% 45%);
+}
 
-        @keyframes shrinkOut {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(0.5); opacity: 0; }
-        }
+.expanded-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+}
 
-        /* Close button styles */
-        .close-button {
-            position: absolute;
-            top: 5%;
-            right: 50%;
-            width: 40px;
-            height: 40px;
-            background: rgba(0, 0, 0, 0.7);
-            border: 2px solid white;
-            border-radius: 50%;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 7;
-            transition: all 0.3s ease;
-        }
+.layer.expanded {
+    position: relative;
+    clip-path: none;
+    max-width: 96vw;
+    max-height: 94vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    animation: expandIn 0.4s ease-out forwards;
+    transform-origin: center;
+    cursor: pointer;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.1);
+    margin: auto;
+}
 
-        .close-button::before, 
-        .close-button::after {
-            content: '';
-            position: absolute;
-            width: 24px;
-            height: 2px;
-            background-color: currentColor;
-        }
+@keyframes expandIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
 
-        .close-button::before {
-            transform: rotate(45deg);
-        }
+@keyframes shrinkOut {
+    0% { transform: scale(1) translateX(var(--zoom-x)) translateY(var(--zoom-y)); opacity: 1; }
+    100% { transform: scale(0.5) translateX(var(--zoom-x)) translateY(var(--zoom-y)); opacity: 0; }
+}
 
-        .close-button::after {
-            transform: rotate(-45deg);
-        }
+.layer {
+    transform-origin: center;
+    will-change: transform;
+}
 
-        /* Zoom animations */
-        .layer.zoomed-first {
-            animation: zoomFirst 1s ease-in-out forwards;
-            cursor: default;
-        }
-        .layer.zoomed-second {
-            animation: zoomSecond 1s ease-in-out forwards;
-            cursor: default;
-        }
-        .layer.zoomed-third {
-            animation: zoomThird 1s ease-in-out forwards;
-            cursor: default;
-        }
+.close-button {
+    position: absolute;
+    top: 5%;
+    right: 50%;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid white;
+    border-radius: 50%;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 7;
+    transition: all 0.3s ease;
+}
 
-        #second-tour-info {
-            left: 5%;
-            right: auto;
-            transform: none;
-        }
-     
-        @keyframes zoomFirst {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.5) translateX(+13%) translateY(-5%); }
-        }
-        @keyframes zoomSecond {
-            0% { transform: scale(1.5) translateX(+13%) translateY(-5%); }
-            100% { transform: scale(1.8) translateX(-20%) translateY(+14%); }
-        }
-        @keyframes zoomThird {
-            0% { transform: scale(1.8) translateX(-20%) translateY(+14%); }
-            100% { transform: scale(2) translateX(+15%) translateY(-25%); }
-        }
+.close-button::before, 
+.close-button::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background-color: currentColor;
+}
 
-        /* Info boxes */
-        .anomaly-info {
-            position: absolute;
-            z-index: 5;
-            display: none;
-            color: rgb(0, 0, 0);
-            width: 16%;
-            background: rgba(247, 247, 247, 0.7);
-            padding: 12px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transform: scale(0.5);
-            transition: all 0.4s ease;
-        }
+.close-button::before {
+    transform: rotate(45deg);
+}
 
-        .anomaly-info.visible {
-            display: block;
-            opacity: 1;
-            transform: scale(1);
-        }
+.close-button::after {
+    transform: rotate(-45deg);
+}
 
-        .title-block {
-            top: 4%;
-            left: 16%;
-        }
+#second-tour-info {
+    left: 5%;
+    right: auto;
+    transform: none;
+}
 
-        .info-block {
-            top: 4%;
-            right: 16%;
-        }
+@keyframes zoomToPoint {
+    0% { transform: scale(var(--from-scale)) translateX(var(--from-x)) translateY(var(--from-y)); }
+    100% { transform: scale(var(--to-scale)) translateX(var(--to-x)) translateY(var(--to-y)); }
+}
 
-        .title-block h2 {
-            margin: 0 0 8px 0;
-            font-size: 1.2em;
-        }
+.layer.zooming {
+    animation: zoomToPoint 1s ease-in-out forwards;
+    transform-origin: center;
+    transition: transform 1s ease-in-out;
+    will-change: transform;
+}
 
-        .title-block button {
-            padding: 8px 14px;
-            background-color: #EB4E27;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9em;
-        }
+.anomaly-info {
+    position: absolute;
+    z-index: 5;
+    display: none;
+    color: rgb(0, 0, 0);
+    width: 16%;
+    background: rgba(247, 247, 247, 0.7);
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.4s ease;
+}
 
-        .info-block p {
-            margin: 0;
-            font-size: 0.95em;
-            line-height: 1.4;
-        }
+.anomaly-info.visible {
+    display: block;
+    opacity: 1;
+    transform: scale(1);
+}
 
-        /* Tour info box */
-        .tour-info {
-            position: absolute;
-            z-index: 6;
-            top: 5%;
-            right: 5%;
-            width: 80%;
-            max-width: 600px;
-            background: rgba(255, 255, 255, 0.8);
-            color: rgb(0, 0, 0);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
+.title-block {
+    top: 4%;
+    left: 16%;
+}
 
-        .tour-info.visible {
-            display: block;
-            opacity: 1;
-        }
+.info-block {
+    top: 4%;
+    right: 16%;
+}
 
-        .tour-info h3 {
-            margin-top: 0;
-            color: #EB4E27;
-            font-size: 1.5em;
-        }
+.title-block h2 {
+    margin: 0 0 8px 0;
+    font-size: 1.2em;
+}
 
-        .tour-info p {
-            font-size: 1.1em;
-            line-height: 1.5;
-        }
+.title-block button {
+    padding: 8px 14px;
+    background-color: #EB4E27;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
 
-        .tour-info button {
-            margin-top: 15px;
-            padding: 8px 20px;
-            background-color: #EB4E27;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1em;
-            margin: 10px 5px;
-        }
+.info-block p {
+    margin: 0;
+    font-size: 0.95em;
+    line-height: 1.4;
+}
+
+.tour-info {
+    position: absolute;
+    z-index: 6;
+    top: 5%;
+    right: 5%;
+    width: 80%;
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.8);
+    color: rgb(0, 0, 0);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.tour-info.visible {
+    display: block;
+    opacity: 1;
+}
+
+.tour-info h3 {
+    margin-top: 0;
+    color: #EB4E27;
+    font-size: 1.5em;
+}
+
+.tour-info p {
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+.tour-info button {
+    margin-top: 15px;
+    padding: 8px 20px;
+    background-color: #EB4E27;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    margin: 10px 5px;
+}
