@@ -206,13 +206,17 @@ header {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+.swiper-pagination {
+    --swiper-pagination-bullet-horizontal-gap: 8px;
+}
+
 .swiper-pagination-bullet {
     background-color: #999;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
 }
 
 .swiper-pagination-bullet-active {
     background-color: #EB4E27;
-    transform: scale(1.2);
+    transform: scale(1.25);
 }
