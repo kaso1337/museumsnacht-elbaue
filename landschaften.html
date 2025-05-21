@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/landschaften_style.css">
+    <title>Bellotto neu interpretiert - Ikonische Landschaften</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="board">
+            <button data-tooltip="Guilin, China" id="china_btn" class="btn btn_tooltip"></button>
+            <button data-tooltip="Provence, Frankreich" id="france_btn" class="btn btn_tooltip"></button>
+            <button data-tooltip="Toskana, Italien" id="italy_btn" class="btn btn_tooltip"></button>
+            <button data-tooltip="Bohol, Philippinen" id="philippines_btn" class="btn btn_tooltip"></button>
+            <button data-tooltip="Highlands, Schottland" id="scotland_btn" class="btn btn_tooltip"></button>
+            <button data-tooltip="Mikumi, Tansania" id="tanzania_btn" class="btn btn_tooltip"></button>
+        </div>
+        <div id="frame">
+            <img id="frame_img_dst" class="center" src="./assets/img/Elbaue.jpg" />
+            <img id="frame_img_src" class="center" src="./assets/img/Elbaue.jpg" />
+        </div>
+        <button data-tooltip="Home" id="home_btn" class="btn btn_tooltip">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="home-icon">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        // Folder names for categories
+        const folder_names = ["China", "Frankreich", "Italien", "Philippinen", "Schottland", "Tansania"];
+        const ids = new Set();
+        const btn_ids = ["china_btn", "france_btn", "italy_btn", "philippines_btn", "scotland_btn", "tanzania_btn"];
+
+        // Categories object to store image paths
+        let categories = {};
+
+        // Debug information to check what's loading and what isn't
+        console.log("Initializing page...");
+        console.log("Current path:", window.location.pathname);
+
+        // Try to load a test image to verify paths
+        const testImg = new Image();
+        testImg.onload = () => console.log("Test image loaded successfully!");
+        testImg.onerror = () => console.log("Test image failed to load!");
+        testImg.src = "./assets/img/Elbaue.png";
+
+        async function initializeCategories() {
+            for (const foldername of folder_names) {
+                const key = foldername[0] + foldername[1];
+                const paths = [];
+
+                let i = 1;
+                while (true) {
+                    const imgPath = `./assets/img/ikonische_landschaften/${foldername}/${foldername}${i}.png`;
+                    console.log("Checking if image exists:", imgPath);
+                    const exists = await checkImageExists(imgPath);
+
+                    if (exists) {
+                        console.log("Image exists:", imgPath);
+                        paths.push(`${foldername}/${foldername}${i}.png`);
+                        i++;
+                    } else {
+                        console.log("Image does not exist:", imgPath);
+                        break;
+                    }
+                }
+
+                categories[key] = { "current_idx": 0, "paths": paths };
+                console.log(`Category ${key} initialized with ${paths.length} images.`);
+            }
+        }
+
+        function checkImageExists(url) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.src = url;
+                img.onload = () => resolve(true);
+                img.onerror = () => resolve(false);
+            });
+        }
+
+        // Initialize and set up event listeners
+        initializeCategories().then(() => {
+            console.log("All categories initialized");
+
+            // Apply background images programmatically 
+            document.getElementById("china_btn").style.backgroundImage = "url('./assets/img/ikonische_landschaften/China/China1.png')";
+            document.getElementById("france_btn").style.backgroundImage = "url('./assets/img/ikonische_landschaften/Frankreich/Frankreich1.png')";
+            document.getElementById("italy_btn").style.backgroundImage = "url('./assets/img/ikonische_landschaften/Italien/Italien1.png')";
+            document.getElementById("philippines_btn").style.backgroundImage = "url('./assets/img/ikonische_landschaften/Philippinen/Philippinen1.png')";
+            document.getElementById("scotland_btn").style.backgroundImage = "url('./assets/img/ikonische_landschaften/Schottland/Schottland1.png')";
+            document.getElementById("tanzania_btn").style.backgroundImage = "url('./assets/img/ikonische_landschaften/Tansania/Tansania1.png')";
+
+            // Add click events
+            btn_ids.forEach((id) => {
+                const btn_event = document.getElementById(id);
+                console.log("Setting up event for:", id);
+
+                btn_event.addEventListener("click", function (event) {
+                    const button = event.target;
+                    button.classList.add('clicked');
+                    select_category(event);
+                });
+                btn_event.addEventListener("touchstart", function (event) {
+                    const button = event.target;
+                    button.classList.add('clicked');
+                    select_category(event);
+                });
+            });
+
+            // Home-Button event handling
+            const homeBtn = document.getElementById('home_btn');
+            if (homeBtn) {
+                homeBtn.addEventListener('click', function () {
+                    window.location.href = 'index.html';
+                });
+                homeBtn.addEventListener('touchstart', function () {
+                    window.location.href = 'index.html';
+                });
+            }
+        });
+
+        function select_category(event) {
+            const id_btn = event.target.id;
+            console.log("Button clicked:", id_btn);
+            const category = id_btn[0].toUpperCase() + id_btn[1];
+            ids.add(id_btn);
+
+            const btn = document.getElementById(id_btn)
+            btn.style.boxShadow = "none";
+            btn.style.pointerEvents = "none";
+            btn.style.cursor = "pointer";
+
+            if (category) {
+                console.log("Selected category:", category);
+                btn_ids.forEach((id) => {
+                    const btn = document.getElementById(id);
+                    btn.style.boxShadow = "none";
+                    btn.style.pointerEvents = "none";
+                    btn.style.cursor = "pointer";
+                });
+                changeImage(getImageByCategories(category));
+
+                setTimeout(function () {
+                    btn_ids.forEach((id) => {
+                        const btn = document.getElementById(id);
+                        btn.style.boxShadow = "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px";
+                        btn.style.pointerEvents = "auto";
+                    });
+                }, 13900);
+            }
+        }
+
+        async function changeImage(srcImage) {
+            console.log("Changing image to:", srcImage);
+            const buttons = document.querySelectorAll('button');
+            const img = document.getElementById('frame_img_dst');
+            const board = document.getElementById('board');
+            const btns = Array.from(document.getElementsByClassName('btn'))
+
+            img.src = srcImage;
+            await img.decode();
+            img.style.opacity = 1;
+
+            board.classList.add("hide_cursor");
+            btns.forEach(b => {
+                b.classList.add("hide_cursor");
+            });
+            buttons.forEach(button => {
+                button.disabled = true;
+                button.classList.add("hide_cursor")
+            });
+
+            setTimeout(function () {
+                img.style.opacity = 0;
+            }, 10000);
+
+            setTimeout(function () {
+                btns.forEach(b => {
+                    b.classList.remove("hide_cursor");
+                });
+                buttons.forEach(button => {
+                    button.disabled = false;
+                    button.classList.remove("clicked");
+                    button.classList.remove("hide_cursor");
+                    board.classList.remove("hide_cursor");
+                });
+            }, 13701);
+        }
+
+        function getImageByCategories(category) {
+            const list = categories[category]["paths"];
+            console.log("List length:", list.length);
+            if (list.length === 0) {
+                console.error("No images found for category:", category);
+                return "./assets/img/Elbaue.png"; // Fallback
+            }
+            console.log("Selected image:", list[categories[category]["current_idx"]]);
+            categories[category]["current_idx"] = (categories[category]["current_idx"] + 1) % list.length;
+            return "./assets/img/ikonische_landschaften/" + list[categories[category]["current_idx"]];
+        }
+    </script>
+
+</body>
+
+</html>
