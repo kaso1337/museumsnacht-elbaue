@@ -163,12 +163,15 @@
             console.log("Changing image to:", srcImage);
             const buttons = document.querySelectorAll('button');
             const img = document.getElementById('frame_img_dst');
+            const initialImg = document.getElementById('frame_img_src');
             const board = document.getElementById('board');
             const btns = Array.from(document.getElementsByClassName('btn'))
 
             img.src = srcImage;
             await img.decode();
             img.style.opacity = 1;
+
+            initialImg.style.opacity = 0;
 
             board.classList.add("hide_cursor");
             btns.forEach(b => {
@@ -181,6 +184,7 @@
 
             setTimeout(function () {
                 img.style.opacity = 0;
+                initialImg.style.opacity = 1;
             }, 10000);
 
             setTimeout(function () {
