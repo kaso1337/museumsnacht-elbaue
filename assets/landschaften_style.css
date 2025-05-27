@@ -15,11 +15,21 @@ body {
 }
 
 #wrapper {
-    height: auto;
+    min-height: 100vh;
     padding: 0 0;
     margin: 1.5% 0;
     position: relative;
     min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#frame_container {
+    /* flex: 1; */
+    max-width: 1400px;
+    position: relative;
+    width: 97%;
 }
 
 #frame {
@@ -27,6 +37,7 @@ body {
     justify-content: center;
     width: 100%;
     position: relative;
+    align-items: center;
 }
 
 #frame_img_src {
@@ -61,18 +72,16 @@ body {
 }
 
 #board {
-    max-width: 1400px;
-    width: 97%;
-    height: auto;
+    position: absolute;
+    left: 102%;
+    /* Position to the right of the frame */
+    top: 0;
+    bottom: 0;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-    background-color: transparent;
-    block-size: fit-content;
-    position: relative;
-    padding: 1.5% 0;
-    left: 50%;
-    transform: translateX(-50%);
+    height: 100%;
+    margin-left: 20px;
 }
 
 .btn {
@@ -83,15 +92,16 @@ body {
     background-position: center;
     position: relative;
     display: inline-block;
-    width: 14vw;
-    height: 14vw;
-    max-width: 140px;
-    max-height: 140px;
+    width: 12vw;
+    height: 12vw;
+    max-width: 130px;
+    max-height: 130px;
     border: none;
     cursor: pointer;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     transition: all 0.4s ease-in-out;
     -webkit-tap-highlight-color: transparent;
+    margin: 0 auto;
 }
 
 /* Using inline background colors to indicate which buttons are which */
@@ -189,14 +199,14 @@ button.btn_tooltip:before {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
+    /* position: absolute;
     right: 3%;
     bottom: 3%;
     z-index: 10;
     width: 14vw;
     height: 14vw;
     max-width: 140px;
-    max-height: 140px;
+    max-height: 140px; */
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     transition: all 0.4s ease-in-out;
 }
