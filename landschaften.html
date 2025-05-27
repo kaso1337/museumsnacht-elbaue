@@ -133,27 +133,33 @@
             console.log("Button clicked:", id_btn);
             const category = id_btn[0].toUpperCase() + id_btn[1];
             ids.add(id_btn);
+            const board = document.getElementById('board');
+            board.classList.add("active");
 
             const btn = document.getElementById(id_btn)
-            btn.style.boxShadow = "none";
-            btn.style.pointerEvents = "none";
-            btn.style.cursor = "pointer";
+            // btn.style.boxShadow = "none";
+            // btn.style.pointerEvents = "none";
+            // btn.style.cursor = "pointer";
 
             if (category) {
                 console.log("Selected category:", category);
                 btn_ids.forEach((id) => {
                     const btn = document.getElementById(id);
-                    btn.style.boxShadow = "none";
-                    btn.style.pointerEvents = "none";
-                    btn.style.cursor = "pointer";
+                    if (id !== "home_btn") {
+                        btn.style.boxShadow = "none";
+                        btn.style.pointerEvents = "none";
+                        btn.style.cursor = "pointer";
+                    }
+
                 });
                 changeImage(getImageByCategories(category));
 
                 setTimeout(function () {
+                    board.classList.remove("active");
                     btn_ids.forEach((id) => {
                         const btn = document.getElementById(id);
                         btn.style.boxShadow = "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px";
-                        btn.style.pointerEvents = "auto";
+                        // btn.style.pointerEvents = "auto";
                     });
                 }, 13900);
             }
@@ -178,8 +184,11 @@
                 b.classList.add("hide_cursor");
             });
             buttons.forEach(button => {
-                button.disabled = true;
-                button.classList.add("hide_cursor")
+                if (button.id !== "home_btn") {
+                    button.disabled = true;
+                    button.classList.add("hide_cursor")
+                }
+
             });
 
             setTimeout(function () {

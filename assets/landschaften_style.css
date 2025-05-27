@@ -10,10 +10,6 @@ body {
     cursor: not-allowed !important;
 }
 
-.clicked {
-    background-color: #EB4E27 !important;
-}
-
 #wrapper {
     min-height: 100vh;
     padding: 0 0;
@@ -53,7 +49,7 @@ body {
     display: block;
     z-index: -1;
     opacity: 1;
-    transition: opacity 5s ease-in;
+    transition: opacity 5s ease-in-out;
 }
 
 #frame_img_dst {
@@ -86,6 +82,12 @@ body {
     margin-left: 20px;
 }
 
+#board.active .btn:not(.clicked, #home_btn) {
+    filter: grayscale(100%) brightness(0.7);
+    opacity: 0.8;
+    transition: all 0.3s ease-in-out;
+}
+
 .btn {
     background-color: #f0f0f0;
     /* Fallback color */
@@ -106,37 +108,6 @@ body {
     margin: 0 auto;
 }
 
-/* Using inline background colors to indicate which buttons are which */
-#romantik_btn {
-    background-color: #ffe0e0;
-    /* Light red */
-}
-
-#renaissance_btn {
-    background-color: #e0ffe0;
-    /* Light green */
-}
-
-#expressionismus_btn {
-    background-color: #e0e0ff;
-    /* Light blue */
-}
-
-#impressionismus_btn {
-    background-color: #fffde0;
-    /* Light yellow */
-}
-
-#xieyi_btn {
-    background-color: #ffe0fd;
-    /* Light purple */
-}
-
-#gongbi_btn {
-    background-color: #e0fffd;
-    /* Light cyan */
-}
-
 .btn:hover,
 .btn:active {
     transform: scale(1.1, 1.1);
@@ -145,7 +116,7 @@ body {
     transition: all 0.2s ease-in-out;
 }
 
-button.btn_tooltip {
+/* button.btn_tooltip {
     position: relative;
     text-decoration: none;
     color: black;
@@ -179,7 +150,7 @@ button.btn_tooltip:before {
     transition: opacity 0.3s ease;
     opacity: 0;
     pointer-events: none;
-}
+} */
 
 @media (hover: hover) and (pointer: fine) {
     button.btn_tooltip:hover::after {
@@ -211,6 +182,7 @@ button.btn_tooltip:before {
     max-height: 140px; */
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     transition: all 0.4s ease-in-out;
+    /* filter: none !important; */
 }
 
 #home_btn:hover,
