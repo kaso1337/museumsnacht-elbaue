@@ -20,42 +20,42 @@ const locations = [
   {
     coords: [51.0504, 13.7373],
     image: 'images/Dresden.jpg',
-    country: 'Germany',
+    country: 'Elbauen, Deutschland',
     description: 'Dresden is known for its baroque architecture and cultural landmarks.'
   }, {
     coords: [7.0731, 125.6131], // Approximate coordinates for Bohol, Philippines
     image: 'images/bohl,philipens.png',
-    country: 'Philippines',
+    country: 'Bohol, Philippinen',
     description: 'Bohol is famous for its Chocolate Hills and pristine beaches.'
   },
   {
     coords: [-6.3690, 34.8888], // Approximate coordinates for Tanzania
     image: 'images/tansania.png',
-    country: 'Tanzania',
+    country: 'Mikumi, Tansania',
     description: 'Tanzania is known for its wildlife, Mount Kilimanjaro, and Serengeti National Park.'
   },
   {
     coords: [57.1200, -4.7100], // Approximate coordinates for the Scottish Highlands
     image: 'images/highlands,schottland.png',
-    country: 'Scotland',
+    country: 'Highlands, Schottland',
     description: 'The Scottish Highlands offer stunning landscapes, castles, and rich history.'
   },
   {
     coords: [43.7711, 11.2486],
     image: 'images/Italy.png',
-    country: 'Italy',
+    country: 'Toskana, Italien',
     description: 'Italy is famous for its historical sites, art, and cuisine.'
   },
   {
     coords: [43.5297, 5.4474],
     image: 'images/France.png',
-    country: 'France',
+    country: 'Provence, Frankreich',
     description: 'France is known for its art, fashion, and iconic landmarks like the Eiffel Tower.'
   },
   {
     coords: [23.1621, 113.3419],
     image: 'images/china.png',
-    country: 'China',
+    country: 'Guilin, China ',
     description: 'China is rich in history, culture, and diverse landscapes.'
   }
 ];
