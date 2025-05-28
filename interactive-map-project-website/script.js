@@ -4,7 +4,8 @@ const map = L.map('map', {
     [-90, -180], // Southwest corner (latitude, longitude)
     [90, 180]    // Northeast corner (latitude, longitude)
   ],
-  maxBoundsViscosity: 1.0 // Restrict smooth movement at edges
+  maxBoundsViscosity: 1.0, // Restrict smooth movement at edges
+  attributionControl: false // Disable default attribution control
 }).setView([20, 0], 2); // Set the initial center and zoom level
 
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {

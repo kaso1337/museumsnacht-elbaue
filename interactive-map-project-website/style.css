@@ -149,6 +149,10 @@ body {
   justify-content: center;
 }
 
+.leaflet-control-attribution {
+  display: none !important;
+}
+
 /* .fullscreen-btn {
   position: fixed;
   bottom: 20px;
