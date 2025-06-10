@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/epochen_style.css">
+    
     <title>Bellotto neu interpretiert - Epochen</title>
 </head>
 
@@ -14,6 +15,13 @@
             <div id="frame">
                 <img id="frame_img_dst" class="center" src="./assets/img/Elbaue.jpg" />
                 <img id="frame_img_src" class="center" src="./assets/img/Elbaue.jpg" />
+                <div class="image-overlay">
+                    <button class="close-overlay" id="close-overlay"></button>
+                    <div class="overlay-content">
+                        <h2 class="overlay-title">Epochen Titel</h2>
+                        <p class="overlay-description">Hier wird die Beschreibung der ausgewählten Epoche angezeigt.</p>
+                    </div>
+                </div>
             </div>
             <div id="board">
                 <button data-tooltip="Romantik" id="romantik_btn" class="btn btn_tooltip"></button>
@@ -22,6 +30,7 @@
                 <button data-tooltip="Impressionismus" id="impressionismus_btn" class="btn btn_tooltip"></button>
                 <button data-tooltip="Xieyi" id="xieyi_btn" class="btn btn_tooltip"></button>
                 <button data-tooltip="Gongbi" id="gongbi_btn" class="btn btn_tooltip"></button>
+                <button data-tooltip="Info" id="info_btn" class="btn btn_tooltip"></button>
                 <button data-tooltip="Home" id="home_btn" class="btn btn_tooltip">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="home-icon">
