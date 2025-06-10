@@ -123,7 +123,7 @@ body {
 
 .close-overlay {
     position: absolute;
-    top: 40px;
+    top: 150px;
     width: 60px;
     height: 60px;
     background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000'%3E%3Cpath d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E") no-repeat center;
@@ -149,6 +149,7 @@ body {
 #board {
     position: absolute;
     left: 102%;
+    /* Position to the right of the frame */
     top: 0;
     bottom: 0;
     display: flex;
@@ -156,8 +157,6 @@ body {
     justify-content: space-between;
     height: 100%;
     margin-left: 20px;
-    gap: 15px; /* Abstand zwischen den Buttons */
-    padding: 20px 0; /* Etwas Padding oben und unten */
 }
 
 #board.active .btn:not(.clicked, #home_btn, #info_btn) {
@@ -173,19 +172,26 @@ body {
     background-position: center;
     position: relative;
     display: inline-block;
-    width: 10vw; /* Kleiner gemacht von 12vw */
-    height: 10vw; /* Kleiner gemacht von 12vw */
-    max-width: 100px; /* Kleiner gemacht von 130px */
-    max-height: 100px; /* Kleiner gemacht von 130px */
-    min-width: 60px; /* Mindestgröße hinzugefügt */
-    min-height: 60px; /* Mindestgröße hinzugefügt */
+    width: 10vw;
+    /* Kleiner gemacht von 12vw */
+    height: 10vw;
+    /* Kleiner gemacht von 12vw */
+    max-width: 110px;
+    /* Kleiner gemacht von 130px */
+    max-height: 110px;
+    /* Kleiner gemacht von 130px */
+    min-width: 60px;
+    /* Mindestgröße hinzugefügt */
+    min-height: 60px;
+    /* Mindestgröße hinzugefügt */
     border: none;
     cursor: pointer;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     transition: all 0.4s ease-in-out;
     -webkit-tap-highlight-color: transparent;
     margin: 0 auto;
-    flex-shrink: 0; /* Verhindert, dass Buttons schrumpfen */
+    flex-shrink: 0;
+    /* Verhindert, dass Buttons schrumpfen */
 }
 
 .btn:hover,
@@ -219,8 +225,8 @@ body {
     justify-content: center;
     width: 10vw;
     height: 10vw;
-    max-width: 100px;
-    max-height: 100px;
+    max-width: 110px;
+    max-height: 110px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     transition: all 0.4s ease-in-out;
 }
@@ -267,7 +273,7 @@ body {
         width: 60px;
         height: 60px;
     }
-    
+
     #board {
         gap: 10px;
         padding: 15px 0;
